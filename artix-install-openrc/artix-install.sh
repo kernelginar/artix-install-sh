@@ -28,7 +28,7 @@ mkdir -p /mnt/boot/efi
 clear
 
 # install base packages
-basestrap -i /mnt base base-devel linux linux-headers linux-firmware runit git nano
+basestrap -i /mnt base base-devel linux linux-headers linux-firmware openrc git nano
 
 # create fstab file
 fstabgen -U /mnt > /mnt/etc/fstab

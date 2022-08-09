@@ -21,14 +21,14 @@ read -p 'Root partition (Example: vda1, sda1, nvme0n1p1): ' root_partition
 mkfs.ext4 /dev/$root_partition
 mount /dev/$root_partition /mnt
 
-read -p 'Boot partition (Example: vda1, sda1, nvme0n1p1): ' boot_partition
-mkfs.fat -F32 /dev/$boot_partition
+read -p 'Boot partition (Example: ): ' boot_partition
+mkfs.fat -F32 $boot_partition
 mkdir -p /mnt/boot/efi
 
 clear
 
 # install base packages
-basestrap -i /mnt base base-devel linux linux-headers linux-firmware openrc git nano
+basestrap -i /mnt base base-devel linux linux-headers linux-firmware runit git nano
 
 # create fstab file
 fstabgen -U /mnt > /mnt/etc/fstab

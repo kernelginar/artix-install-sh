@@ -9,20 +9,20 @@ clear
 # disk configuration
 lsblk
 echo ' '
-read -p 'Select disk: ' disk_selection
-cfdisk $disk_selection
+read -p 'Select disk (Example: vda, sda, nvme0n1): ' disk_selection
+cfdisk /dev/$disk_selection
 
 clear
 lsblk
 echo ' '
 
 # format disk label
-read -p 'Root partition with /dev, /dev/???: ' root_partition
-mkfs.ext4 $root_partition
-mount $root_partition /mnt
+read -p 'Root partition (Example: vda1, sda1, nvme0n1p1): ' root_partition
+mkfs.ext4 /dev/$root_partition
+mount /dev/$root_partition /mnt
 
-read -p 'Boot partition with /dev, /dev/???: ' boot_partition
-mkfs.fat -F32 $boot_partition
+read -p 'Boot partition (Example: vda1, sda1, nvme0n1p1): ' boot_partition
+mkfs.fat -F32 /dev/$boot_partition
 mkdir -p /mnt/boot/efi
 
 clear
@@ -32,7 +32,7 @@ basestrap -i /mnt base base-devel linux linux-headers linux-firmware openrc git 
 
 # create fstab file
 fstabgen -U /mnt > /mnt/etc/fstab
-mount $boot_partition /mnt/boot/efi
+mount /dev/$boot_partition /mnt/boot/efi
 
 cp $(pwd)/chroot.sh /mnt
 artix-chroot /mnt /bin/bash

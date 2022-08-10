@@ -21,7 +21,7 @@ read -p 'Root partition (Example: vda1, sda1, nvme0n1p1): ' root_partition
 mkfs.ext4 /dev/$root_partition
 mount /dev/$root_partition /mnt
 
-read -p 'Boot partition (Example: ): ' boot_partition
+read -p 'Boot partition (Example: vda1, sda1, nvme0n1p1): ' boot_partition
 mkfs.fat -F32 /dev/$boot_partition
 mkdir -p /mnt/boot/efi
 

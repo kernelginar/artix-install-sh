@@ -22,7 +22,7 @@ mkfs.ext4 /dev/$root_partition
 mount /dev/$root_partition /mnt
 
 read -p 'Boot partition (Example: ): ' boot_partition
-mkfs.fat -F32 $boot_partition
+mkfs.fat -F32 /dev/$boot_partition
 mkdir -p /mnt/boot/efi
 
 clear

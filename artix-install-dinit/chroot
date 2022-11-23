@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/bash
 clear
 
 # edit /etc/pacman.conf file
@@ -46,36 +46,50 @@ clear
 # root password
 echo 'Root password'
 passwd
+sleep 2
 
 clear
 
 # packages
 pacman -Sy networkmanager networkmanager-dinit
+sleep 2
 clear
+
 echo 'After restarting the computer, enter the command "sudo dinitctl enable NetworkManager ; sudo dinitctl start NetworkManager'
 sleep 6
 clear
 
 # touchpad support
 pacman -S xf86-input-libinput
+sleep 2
 clear
 
 # NTFS filesystem support
 pacman -S ntfs-3g
+sleep 2
 clear
 
 # GRUB
 pacman -S grub efibootmgr os-prober
+sleep 2
+clear
+
 grub-install --target=x86_64-efi --efi-directory=/boot/efi --bootloader-id='Artix Linux'
+sleep 2
+clear
+
 grub-mkconfig -o /boot/grub/grub.cfg
-sleep 3
+sleep 2
 clear
 
 # useradd
 read -p 'Username: ' user_name
 useradd -m -g users -G wheel,storage,power,audio,video -s /bin/bash $user_name
+clear
+
 echo $user_name 'password'
 passwd $user_name
+sleep 2
 
 # sudo privileges
 EDITOR=nano visudo
